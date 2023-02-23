@@ -43,4 +43,18 @@ describe('Greeting component', () => {
     const outputElement = screen.getByText('Changed!');
     expect(outputElement).toBeInTheDocument();
   });
+
+  test('NOT render "Its good to see you" if button WAS clicked', () => {
+    //Arrange
+    render(<Greeting />);
+
+    //Act
+    const buttonElement = screen.getByRole('button');
+    userEvent.click(buttonElement);
+
+    //Assert
+    const outputElement = screen.queryByText("It's good to see you"); //when expecting something NOT to be found, use query, not get
+    // expect(outputElement).not.toBeInTheDocument(); //this way also works
+    expect(outputElement).toBeNull();
+  });
 });
